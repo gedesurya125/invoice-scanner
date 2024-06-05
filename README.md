@@ -36,3 +36,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 prisma integration source: https://mael.app/blog/nextjs-13-app-directory-prisma-3nnl/
+
+## After updating the prisma schema run following command
+
+1. yarn prisma:migrate
+2. yarn prisma:push
+3. yarn prisma:generate

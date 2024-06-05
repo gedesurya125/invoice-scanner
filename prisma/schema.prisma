@@ -14,3 +14,22 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 }
+
+model Invoice {
+  id          Int      @id @default(autoincrement())
+  items       Item[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  invoiceData DateTime
+}
+
+model Item {
+  id         Int     @id @default(autoincrement())
+  ammount    Int
+  unit       String
+  unitPrice  Int
+  totalPrice Int
+  currency   String
+  invoice    Invoice @relation(fields: [invoiceId], references: [id])
+  invoiceId  Int
+}
