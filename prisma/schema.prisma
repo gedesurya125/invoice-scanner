@@ -29,7 +29,8 @@ model Invoice {
 
 model Item {
   id         Int     @id @default(autoincrement())
-  amount     Int?
+  name       String?
+  quantity   Int?
   unit       String?
   unitPrice  Int?
   totalPrice Int?

@@ -19,7 +19,8 @@ export const createInvoice = async (
         create: parsedInvoiceDocument.inference.prediction.line_items.map(
           (data) => {
             return {
-              amount: data.total_amount / data.unit_price,
+              name: data.description,
+              quantity: data.total_amount / data.unit_price,
               unit: '',
               unitPrice: data.unit_price,
               totalPrice: data.total_amount,

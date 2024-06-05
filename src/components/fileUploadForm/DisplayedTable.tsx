@@ -78,7 +78,8 @@ const InvoiceListItem = ({ invoice }: { invoice: Invoice }) => {
         <Box as="thead">
           <Box as="tr">
             <ThElement>Id</ThElement>
-            <ThElement>Amount</ThElement>
+            <ThElement>Name</ThElement>
+            <ThElement>Quantity</ThElement>
             <ThElement>Unit</ThElement>
             <ThElement>Unit Price</ThElement>
             <ThElement>Total Price</ThElement>
@@ -115,7 +116,13 @@ const RowElement = ({ item }: { item: Item }) => {
   return (
     <Box as="tr">
       <ColumnElement>{item.id}</ColumnElement>
-      <ColumnElement>{item.amount}</ColumnElement>
+      <ColumnElement
+        sx={{
+          width: '40%'
+        }}>
+        {item.name}
+      </ColumnElement>
+      <ColumnElement>{item.quantity}</ColumnElement>
       <ColumnElement>{item.unit}</ColumnElement>
       <ColumnElement>{item.unitPrice}</ColumnElement>
       <ColumnElement>{item.totalPrice}</ColumnElement>
@@ -124,13 +131,20 @@ const RowElement = ({ item }: { item: Item }) => {
   );
 };
 
-const ColumnElement = ({ children }: { children: React.ReactNode }) => {
+const ColumnElement = ({
+  children,
+  sx
+}: {
+  children: React.ReactNode;
+  sx?: any;
+}) => {
   return (
     <Paragraph
       as="td"
       sx={{
         variant: 'text.body-125-normal',
-        fontSize: '1.4rem'
+        fontSize: '1.4rem',
+        ...sx
       }}>
       {children}
     </Paragraph>
