@@ -1,3 +1,4 @@
+import { DisplayedTable } from 'components/fileUploadForm/DisplayedTable';
 import { FileUploadForm } from 'components/fileUploadForm/FileUploadForm';
 import { getUserList } from 'queries/getUser';
 import { Heading, Paragraph, Section } from 'theme/components';
@@ -6,7 +7,9 @@ export default function Home() {
   return (
     <Section>
       <Headline />
+      <DisplayedTable />
       <FileUploadForm />
+      {/* <PrismaUser /> */}
     </Section>
   );
 }

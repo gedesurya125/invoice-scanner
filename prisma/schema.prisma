@@ -16,20 +16,24 @@ model User {
 }
 
 model Invoice {
-  id          Int      @id @default(autoincrement())
-  items       Item[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  invoiceData DateTime
+  id           Int       @id @default(autoincrement())
+  items        Item[]
+  totalPrice   Int?
+  documentType String?
+  currency     String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+  invoiceDate  DateTime?
+  language     String?
 }
 
 model Item {
   id         Int     @id @default(autoincrement())
-  ammount    Int
-  unit       String
-  unitPrice  Int
-  totalPrice Int
-  currency   String
+  amount     Int?
+  unit       String?
+  unitPrice  Int?
+  totalPrice Int?
+  currency   String?
   invoice    Invoice @relation(fields: [invoiceId], references: [id])
   invoiceId  Int
 }

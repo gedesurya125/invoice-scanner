@@ -1,13 +1,19 @@
 'use client';
+import { useRouter } from 'next/navigation';
+import { createInvoice } from 'queries/createInvoice';
 import React from 'react';
-import { Box, Button, Input, Paragraph } from 'theme/components';
+import { Box, Button, Input, Paragraph, Spinner } from 'theme/components';
+import { InvoiceParseResponse } from 'types/invoiceParserResponse';
 
 export const FileUploadForm = ({}) => {
-  const [result, setResult] = React.useState(null);
+  const [result, setResult] = React.useState<InvoiceParseResponse | null>(null);
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
 
   const token = process.env.NEXT_PUBLIC_MINDEE_API_KEY;
 
   const handleFormSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
+    setLoading(true);
     evt.preventDefault();
     let myFileInput = document.getElementById(
       'invoice-file-input'
@@ -20,7 +26,7 @@ export const FileUploadForm = ({}) => {
     let data = new FormData();
     data.append('document', myFile, myFile.name);
 
-    const responseData = await fetch(
+    const responseData: InvoiceParseResponse | void = await fetch(
       'https://api.mindee.net/v1/products/mindee/invoices/v4/predict',
       {
         method: 'POST',
@@ -31,14 +37,21 @@ export const FileUploadForm = ({}) => {
         body: data
       }
     )
-      .then((res) => {
-        return res.json();
+      .then(async (res) => {
+        const data: InvoiceParseResponse = await res.json();
+        if (data) {
+          await createInvoice(data.document);
+          router.refresh();
+        }
+
+        return data;
       })
       .catch((err) => {
         console.log('error sending the invoice file', err);
       });
 
-    setResult(responseData);
+    setResult(responseData || null);
+    setLoading(false);
   };
 
   console.log('this is the result', result);
@@ -61,8 +74,9 @@ export const FileUploadForm = ({}) => {
           variant: 'buttons.secondary.small',
           mt: '3rem'
         }}>
-        Submit
+        {loading ? <Spinner /> : 'Submit'}
       </Button>
+
       {result && (
         <pre>
           <Paragraph as="code" className="response">

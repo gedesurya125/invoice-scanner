@@ -28,7 +28,7 @@ export {
   // @ts-ignore
 } from '@thepuzzlers/pieces';
 
-export { Select, Textarea, Radio, Checkbox, Slider } from 'theme-ui';
+export { Select, Textarea, Radio, Checkbox, Slider, Spinner } from 'theme-ui';
 
 export const NextThemeUiProvider = ({
   children

@@ -93,58 +93,60 @@ type TaxesValue = {
   value: number;
 };
 
-export type invoiceParseResponse = {
-  api_request: ApiRequest;
-  document: {
-    id: string;
-    name: string;
-    n_pages: number;
-    is_rotation_applied: boolean;
-    inference: {
-      extras: any;
-      finished_at: string;
-      is_rotation_applied: true;
-      pages: ParsedPage[];
-      prediction: {
-        billing_address: PredictionValue;
-        customer_address: PredictionValue;
-        customer_company_registrations: PredictionValue[];
-        customer_id: PredictionValue;
-        customer_name: PredictionValue;
-        date: PredictionValue;
-        document_type: {
-          value: string;
-        };
-        due_date: PredictionValue;
-        invoice_number: PredictionValue;
-        line_items: LineItemPrediction[];
-        locale: {
-          confidence: number;
-          currency: string;
-          language: string;
-        };
-        reference_numbers: ReferenceNumberPrediction[];
-        shipping_address: PredictionValue;
-        supplier_address: PredictionValue;
-        supplier_company_registrations: PredictionValue[];
-        supplier_email: PredictionValue;
-        supplier_name: PredictionValue;
-        supplier_payment_details: PaymentDetails[];
-        supplier_phone_number: PredictionValue;
-        supplier_website: PredictionValue;
-        taxes: TaxesValue[];
-        total_amount: PredictionValue;
-        total_net: PredictionValue;
-        total_tax: PredictionValue;
+export type ParsedInvoiceDocument = {
+  id: string;
+  name: string;
+  n_pages: number;
+  is_rotation_applied: boolean;
+  inference: {
+    extras: any;
+    finished_at: string;
+    is_rotation_applied: true;
+    pages: ParsedPage[];
+    prediction: {
+      billing_address: PredictionValue;
+      customer_address: PredictionValue;
+      customer_company_registrations: PredictionValue[];
+      customer_id: PredictionValue;
+      customer_name: PredictionValue;
+      date: PredictionValue;
+      document_type: {
+        value: string;
       };
-      processing_time: number;
-      product: {
-        features: string[];
-        name: string;
-        type: string;
-        version: string;
+      due_date: PredictionValue;
+      invoice_number: PredictionValue;
+      line_items: LineItemPrediction[];
+      locale: {
+        confidence: number;
+        currency: string;
+        language: string;
       };
-      started_at: string;
+      reference_numbers: ReferenceNumberPrediction[];
+      shipping_address: PredictionValue;
+      supplier_address: PredictionValue;
+      supplier_company_registrations: PredictionValue[];
+      supplier_email: PredictionValue;
+      supplier_name: PredictionValue;
+      supplier_payment_details: PaymentDetails[];
+      supplier_phone_number: PredictionValue;
+      supplier_website: PredictionValue;
+      taxes: TaxesValue[];
+      total_amount: PredictionValue;
+      total_net: PredictionValue;
+      total_tax: PredictionValue;
     };
+    processing_time: number;
+    product: {
+      features: string[];
+      name: string;
+      type: string;
+      version: string;
+    };
+    started_at: string;
   };
+};
+
+export type InvoiceParseResponse = {
+  api_request: ApiRequest;
+  document: ParsedInvoiceDocument;
 };
