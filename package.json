@@ -6,10 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:pull": "yarn prisma db pull",
+    "prisma:generate": "yarn prisma generate",
+    "prisma:migrate": "yarn prisma migrate dev --name init",
+    "prisma:seed": "yarn prisma db seed"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
+    "@prisma/client": "5.15.0",
     "@theme-ui/mdx": "^0.16.2",
     "@thepuzzlers/pieces": "^0.2.2",
     "next": "14.2.3",
@@ -24,6 +32,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "^9.1.0",
+    "prisma": "^5.15.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
