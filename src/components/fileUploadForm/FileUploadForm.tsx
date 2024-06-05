@@ -61,12 +61,13 @@ export const FileUploadForm = ({}) => {
         }}>
         Submit
       </Button>
-      {}
-      <pre>
-        <Paragraph as="code" className="response">
-          {JSON.stringify(result, null, 2)}
-        </Paragraph>
-      </pre>
+      {result && (
+        <pre>
+          <Paragraph as="code" className="response">
+            {JSON.stringify(result, null, 2)}
+          </Paragraph>
+        </pre>
+      )}
     </Box>
   );
 };
