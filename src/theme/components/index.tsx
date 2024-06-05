@@ -1,10 +1,10 @@
-"use client";
+'use client';
+import React from 'react';
 
-import theme from "theme";
-import { ThemeUIProvider } from "theme-ui";
+import theme from 'theme';
+import { ThemeUIProvider } from 'theme-ui';
 
-export { Themed } from "@theme-ui/mdx";
-import React from "react";
+export { Themed } from '@theme-ui/mdx';
 
 const ColorMode = React.createContext(null);
 
@@ -24,12 +24,14 @@ export {
   Image,
   ResponsiveImage,
   GridWrapper,
-  fullWidthMinusMargins,
+  fullWidthMinusMargins
   // @ts-ignore
-} from "@thepuzzlers/pieces";
+} from '@thepuzzlers/pieces';
+
+export { Select, Textarea, Radio, Checkbox, Slider } from 'theme-ui';
 
 export const NextThemeUiProvider = ({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) => {
