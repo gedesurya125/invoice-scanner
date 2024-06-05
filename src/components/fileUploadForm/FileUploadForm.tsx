@@ -41,6 +41,8 @@ export const FileUploadForm = ({}) => {
     setResult(responseData);
   };
 
+  console.log('this is the result', result);
+
   return (
     <Box
       as="form"
