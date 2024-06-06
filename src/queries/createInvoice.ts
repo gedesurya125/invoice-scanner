@@ -18,9 +18,23 @@ export const createInvoice = async (
       items: {
         create: parsedInvoiceDocument.inference.prediction.line_items.map(
           (data) => {
+            const getQuantity = () => {
+              if (
+                data?.total_amount &&
+                data?.unit_price &&
+                data?.total_amount > data?.unit_price
+              ) {
+                const calculatedQuantity = Math.round(
+                  data.total_amount / data.unit_price
+                );
+                return calculatedQuantity;
+              }
+              return data?.quantity;
+            };
+
             return {
               name: data.description,
-              quantity: data.total_amount / data.unit_price,
+              quantity: getQuantity(),
               unit: '',
               unitPrice: data.unit_price,
               totalPrice: data.total_amount,

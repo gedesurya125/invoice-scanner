@@ -2,8 +2,8 @@ import prisma from '../src/utils/prisma';
 
 async function main() {
   await prisma.user.deleteMany();
-  await prisma.invoice.deleteMany();
   await prisma.item.deleteMany();
+  await prisma.invoice.deleteMany();
 }
 
 main()

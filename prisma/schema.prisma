@@ -18,7 +18,7 @@ model User {
 model Invoice {
   id           Int       @id @default(autoincrement())
   items        Item[]
-  totalPrice   Int?
+  totalPrice   Float?
   documentType String?
   currency     String?
   createdAt    DateTime  @default(now())
@@ -32,8 +32,8 @@ model Item {
   name       String?
   quantity   Int?
   unit       String?
-  unitPrice  Int?
-  totalPrice Int?
+  unitPrice  Float?
+  totalPrice Float?
   currency   String?
   invoice    Invoice @relation(fields: [invoiceId], references: [id])
   invoiceId  Int
