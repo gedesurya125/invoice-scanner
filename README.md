@@ -42,3 +42,12 @@ prisma integration source: https://mael.app/blog/nextjs-13-app-directory-prisma-
 1. yarn prisma:migrate
 2. yarn prisma:push
 3. yarn prisma:generate
+
+## Resetting the prisma database
+
+source https://www.basedash.com/blog/how-to-reset-and-seed-a-prisma-database
+
+## Mindee information
+
+Subscription plan https://platform.mindee.com/mindee/invoices/plan
+Documentation info: https://developers.mindee.com/docs/invoice-ocr

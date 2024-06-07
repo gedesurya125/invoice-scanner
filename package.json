@@ -12,7 +12,9 @@
     "prisma:migrate:init": "yarn prisma migrate dev --name init",
     "prisma:migrate": "yarn prisma migrate dev",
     "prisma:seed": "yarn prisma db seed",
-    "prisma:push": "yarn prisma db push"
+    "prisma:push": "yarn prisma db push",
+    "prisma:studio": "yarn prisma studio",
+    "prisma:reset": "yarn prisma migrate reset"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
