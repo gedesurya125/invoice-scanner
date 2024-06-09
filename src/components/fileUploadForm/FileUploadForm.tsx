@@ -1,57 +1,45 @@
 'use client';
-import { useRouter } from 'next/navigation';
-import { createInvoice } from 'queries/createInvoice';
+// import { useRouter } from 'next/navigation';
+// import { createInvoice } from 'queries/createInvoice';
 import React from 'react';
 import { Box, Button, Input, Paragraph, Spinner } from 'theme/components';
-import { InvoiceParseResponse } from 'types/invoiceParserResponse';
+// import { InvoiceParseResponse } from 'types/invoiceParserResponse';
+// import pdfParse from 'pdf-parse';
 
 export const FileUploadForm = ({}) => {
-  const [result, setResult] = React.useState<InvoiceParseResponse | null>(null);
+  const [selectedFile, setSelectedFile] = React.useState<Blob | string>('');
+  const [result, setResult] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-  const router = useRouter();
 
-  const token = process.env.NEXT_PUBLIC_MINDEE_API_KEY;
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFile(
+      (event?.target?.files &&
+        event?.target?.files?.length > 0 &&
+        event?.target?.files[0]) ||
+        ''
+    );
+  };
 
-  const handleFormSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     setLoading(true);
-    evt.preventDefault();
-    let myFileInput = document.getElementById(
-      'invoice-file-input'
-    ) as HTMLInputElement;
-    let myFile = myFileInput?.files && myFileInput?.files[0];
-    if (!myFile) {
-      return;
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('invoiceFile', selectedFile);
+
+    const response = await fetch('/api/upload/', {
+      method: 'POST',
+      body: formData
+    });
+
+    try {
+      const data = await response?.json();
+      console.log('this is the response', data);
+
+      setResult(data?.extractedData);
+      setLoading(false);
+    } catch (error) {
+      console.log('error parsed json', error);
     }
-
-    let data = new FormData();
-    data.append('document', myFile, myFile.name);
-
-    const responseData: InvoiceParseResponse | void = await fetch(
-      'https://api.mindee.net/v1/products/mindee/invoices/v4/predict',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Token ${token}`,
-          Accept: 'application/json'
-        },
-        body: data
-      }
-    )
-      .then(async (res) => {
-        const data: InvoiceParseResponse = await res.json();
-        if (data) {
-          await createInvoice(data.document);
-          router.refresh();
-        }
-
-        return data;
-      })
-      .catch((err) => {
-        console.log('error sending the invoice file', err);
-      });
-
-    setResult(responseData || null);
-    setLoading(false);
   };
 
   console.log('this is the result', result);
@@ -59,7 +47,7 @@ export const FileUploadForm = ({}) => {
   return (
     <Box
       as="form"
-      onSubmit={handleFormSubmit}
+      onSubmit={handleSubmit}
       sx={{
         gridColumn: ['1/13', '1/25', '1/25', '1/25'],
         display: 'flex',
@@ -67,7 +55,12 @@ export const FileUploadForm = ({}) => {
         alignItems: 'center',
         mt: '5rem'
       }}>
-      <Input type="file" id="invoice-file-input" name="file" />
+      <Input
+        type="file"
+        id="invoice-file-input"
+        name="file"
+        onChange={handleFileChange}
+      />
       <Button
         type="submit"
         sx={{
